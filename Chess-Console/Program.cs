@@ -1,12 +1,18 @@
-﻿using System;
+﻿using Board;
 
-namespace PrimeiroProjeto // Note: actual namespace depends on the project name.
+namespace Chess
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Position P;
+
+            P = new Position(3, 4);
+
+            Console.WriteLine("Posição: " + P);
+
+            Console.ReadLine();
         }
     }
 }

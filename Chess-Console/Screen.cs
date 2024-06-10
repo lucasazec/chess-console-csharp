@@ -10,7 +10,7 @@ namespace Chess_Console
             {
                 for(int j = 0;j<board.columns; j++)
                 {
-                    if (board.piece(j,i) == null)
+                    if (board.piece(i,j) == null)
                     {
                         Console.Write("- ");
                     }

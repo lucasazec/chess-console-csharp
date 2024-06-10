@@ -17,5 +17,11 @@
         {
             return _pieces[row, column];
         }
+
+        public void placePiece( Piece piece, Position position )
+        {
+            _pieces[position.row, position.column] = piece;
+            piece.position = position;
+        }
     }
 }

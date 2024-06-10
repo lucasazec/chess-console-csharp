@@ -1,18 +1,14 @@
-﻿using Board;
+﻿using board;
 
-namespace Chess
+namespace chess
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Position P;
+            Board board = new Board(8, 8);
 
-            P = new Position(3, 4);
-
-            Console.WriteLine("Posição: " + P);
-
-            Console.ReadLine();
+            Console.WriteLine();
         }
     }
 }

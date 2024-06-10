@@ -1,4 +1,5 @@
 ﻿using board;
+using Chess_Console;
 
 namespace chess
 {
@@ -8,7 +9,7 @@ namespace chess
         {
             Board board = new Board(8, 8);
 
-            Console.WriteLine();
+            Screen.printScreen(board);
         }
     }
 }

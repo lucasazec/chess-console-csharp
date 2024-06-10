@@ -12,5 +12,10 @@
             this.columns = columns;
             _pieces = new Piece[rows, columns];
         }
+
+        public Piece piece(int row, int column)
+        {
+            return _pieces[row, column];
+        }
     }
 }

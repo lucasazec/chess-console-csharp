@@ -8,14 +8,22 @@ namespace chess
     {
         static void Main(string[] args)
         {
-            Board board = new Board(8, 8);
+            try
+            {
+                Board board = new Board(8, 8);
 
-            board.placePiece(new Tower(board, Color.Black), new Position(0, 0));
-            board.placePiece(new Tower(board, Color.Black), new Position(1, 3));
-            board.placePiece(new King(board, Color.Black), new Position(2, 4));
+                board.placePiece(new Tower(board, Color.Black), new Position(0, 0));
+                board.placePiece(new Tower(board, Color.Black), new Position(1, 3));
+                board.placePiece(new King(board, Color.Black), new Position(2, 4));
 
 
-            Screen.printScreen(board);
+                Screen.printScreen(board);
+            }
+            catch (BoardException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
 
             Console.ReadLine();
         }

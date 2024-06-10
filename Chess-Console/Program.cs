@@ -1,6 +1,7 @@
 ﻿using board;
 using chess;
 using Chess_Console;
+using System.Runtime.ConstrainedExecution;
 
 namespace chess
 {
@@ -15,6 +16,8 @@ namespace chess
                 board.placePiece(new Tower(board, Color.Black), new Position(0, 0));
                 board.placePiece(new Tower(board, Color.Black), new Position(1, 3));
                 board.placePiece(new King(board, Color.Black), new Position(2, 4));
+
+                board.placePiece(new Tower(board, Color.White), new Position(3, 5));
 
 
                 Screen.printScreen(board);

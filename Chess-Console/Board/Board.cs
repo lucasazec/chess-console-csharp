@@ -29,27 +29,30 @@
             return piece(position) != null;
         }
 
-        public void placePiece( Piece piece, Position position )
+        public void placePiece(Piece piece, Position position)
         {
-            if (thereIsAPiece(position){
+            if (thereIsAPiece(position))
+            {
                 throw new BoardException("There is already a piece in that position!");
             }
+
             _pieces[position.row, position.column] = piece;
             piece.position = position;
         }
 
-        public bool validPosition( Position position )
+
+        public bool validPosition(Position position)
         {
-            if (position.row<0 || position.row>=rows || position.column<0 || position.column >= columns)
+            if (position.row < 0 || position.row >= rows || position.column < 0 || position.column >= columns)
             {
                 return false;
             }
             return true;
         }
 
-        public void positionValidation( Position position )
+        public void positionValidation(Position position)
         {
-            if(!validPosition( position ))
+            if (!validPosition(position))
             {
                 throw new BoardException("Invalid Position!");
             }

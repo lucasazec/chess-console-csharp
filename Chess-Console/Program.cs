@@ -23,6 +23,15 @@ namespace chess
 
                     Console.Write("Origem: ");
                     Position initial = Screen.readChessPosition().toPosition();
+
+                    bool[,] possiblePositions = chessMatch.board.piece(initial).possibleMoves();
+
+                    Console.Clear();
+                    Screen.printScreen(chessMatch.board, possiblePositions);
+
+                    Console.WriteLine();
+                    Console.WriteLine();
+
                     Console.Write("Destino: ");
                     Position final = Screen.readChessPosition().toPosition();
 

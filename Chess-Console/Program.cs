@@ -11,16 +11,26 @@ namespace chess
         {
             try
             {
-                Board board = new Board(8, 8);
+                ChessMatch chessMatch = new ChessMatch();
 
-                board.placePiece(new Tower(board, Color.Black), new Position(0, 0));
-                board.placePiece(new Tower(board, Color.Black), new Position(1, 3));
-                board.placePiece(new King(board, Color.Black), new Position(2, 4));
+                while (!chessMatch.finished)
+                {
+                    Console.Clear();
+                    Screen.printScreen(chessMatch.board);
 
-                board.placePiece(new Tower(board, Color.White), new Position(3, 5));
+                    Console.WriteLine();
+                    Console.WriteLine();
 
+                    Console.Write("Origem: ");
+                    Position initial = Screen.readChessPosition().toPosition();
+                    Console.Write("Destino: ");
+                    Position final = Screen.readChessPosition().toPosition();
 
-                Screen.printScreen(board);
+                    chessMatch.performChessMove(initial, final);
+                }
+
+                Screen.printScreen(chessMatch.board);
+
             }
             catch (BoardException e)
             {

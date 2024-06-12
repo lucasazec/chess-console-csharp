@@ -14,5 +14,10 @@
             this.color = color;
             this.qtMovements = 0;
         }
+
+        public void increaseQtMovements()
+        {
+            qtMovements++;
+        }
     }
 }

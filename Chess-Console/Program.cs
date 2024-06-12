@@ -15,27 +15,40 @@ namespace chess
 
                 while (!chessMatch.finished)
                 {
-                    Console.Clear();
-                    Screen.printScreen(chessMatch.board);
+                    try
+                    {
+                        Console.Clear();
+                        Screen.printScreen(chessMatch.board);
+                        Console.WriteLine();
+                        Console.WriteLine();
 
-                    Console.WriteLine();
-                    Console.WriteLine();
+                        Console.WriteLine("Turno: " + chessMatch.turn);
+                        Console.WriteLine("Aguardando jogada: " + chessMatch.currentPlayer);
 
-                    Console.Write("Origem: ");
-                    Position initial = Screen.readChessPosition().toPosition();
+                        Console.WriteLine();
 
-                    bool[,] possiblePositions = chessMatch.board.piece(initial).possibleMoves();
+                        Console.Write("Origem: ");
+                        Position initial = Screen.readChessPosition().toPosition();
+                        chessMatch.validateSourcePosition(initial);
 
-                    Console.Clear();
-                    Screen.printScreen(chessMatch.board, possiblePositions);
+                        bool[,] possiblePositions = chessMatch.board.piece(initial).possibleMoves();
 
-                    Console.WriteLine();
-                    Console.WriteLine();
+                        Console.Clear();
+                        Screen.printScreen(chessMatch.board, possiblePositions);
 
-                    Console.Write("Destino: ");
-                    Position final = Screen.readChessPosition().toPosition();
+                        Console.WriteLine();
 
-                    chessMatch.performChessMove(initial, final);
+                        Console.Write("Destino: ");
+                        Position final = Screen.readChessPosition().toPosition();
+                        chessMatch.validateTargetPosition(initial, final);
+
+                        chessMatch.makeMove(initial, final);
+                    }
+                    catch (BoardException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
                 }
 
                 Screen.printScreen(chessMatch.board);

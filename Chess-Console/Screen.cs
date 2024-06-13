@@ -14,17 +14,21 @@ namespace Chess_Console
             Console.WriteLine();
             printCapturedPieces(match);
             Console.WriteLine();
-            Console.WriteLine("Turno: " + match.turn);
-            Console.WriteLine("Aguardando jogada: " + match.currentPlayer);
+            Console.WriteLine("Turn: " + match.turn);
+            Console.WriteLine("Waiting player: " + match.currentPlayer);
+            if (match.check)
+            {
+                Console.WriteLine("CHECK!");
+            }
         }
 
         public static void printCapturedPieces(ChessMatch match)
         {
-            Console.WriteLine("Peças capturadas: ");
-            Console.Write("Brancas: ");
+            Console.WriteLine("Captured pieces: ");
+            Console.Write("White: ");
             printGroup(match.capturedPieces(Color.White));
             Console.WriteLine();
-            Console.Write("Pretas: ");
+            Console.Write("Black: ");
             ConsoleColor aux = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Yellow;
             printGroup(match.capturedPieces(Color.Black));

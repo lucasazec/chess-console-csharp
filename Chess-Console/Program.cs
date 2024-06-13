@@ -22,7 +22,7 @@ namespace chess
 
                         Console.WriteLine();
 
-                        Console.Write("Origem: ");
+                        Console.Write("Source: ");
                         Position initial = Screen.readChessPosition().toPosition();
                         chessMatch.validateSourcePosition(initial);
 
@@ -34,7 +34,7 @@ namespace chess
                         Console.WriteLine();
                         Console.WriteLine();
 
-                        Console.Write("Destino: ");
+                        Console.Write("Target: ");
                         Position final = Screen.readChessPosition().toPosition();
                         chessMatch.validateTargetPosition(initial, final);
 

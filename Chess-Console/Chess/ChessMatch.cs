@@ -1,4 +1,5 @@
 ﻿using board;
+using System.Collections.Generic;
 
 namespace chess
 {
@@ -8,6 +9,9 @@ namespace chess
         public int turn { get; private set; }
         public Color currentPlayer { get; private set; }
         public bool finished { get; private set; }
+        private HashSet<Piece> pieces;
+        private HashSet<Piece> captured;
+
 
         public ChessMatch()
         {
@@ -15,6 +19,8 @@ namespace chess
             turn = 1;
             currentPlayer = Color.White;
             finished = false;
+            pieces = new HashSet<Piece>();
+            captured = new HashSet<Piece>();
             putPieces();
         }
 
@@ -24,6 +30,10 @@ namespace chess
             p.increaseQtMovements();
             Piece capturedPiece = board.removePiece(targetPosition);
             board.placePiece(p, targetPosition);
+            if(capturedPiece != null)
+            {
+                captured.Add(capturedPiece);
+            }
         }
 
         public void makeMove(Position sourcePosition, Position targetPosition)
@@ -69,21 +79,56 @@ namespace chess
             }
         }
 
+        public HashSet<Piece> capturedPieces(Color color)
+        {
+            HashSet<Piece> aux = new HashSet<Piece>();
+            foreach(Piece x in captured)
+            {
+                if(x.color == color)
+                {
+                    aux.Add(x);
+                }
+            }
+            return aux;
+        }
+
+        public HashSet<Piece> piecesInPlay(Color color)
+        {
+            HashSet<Piece> aux = new HashSet<Piece>();
+            foreach (Piece x in pieces)
+            {
+                if (x.color == color)
+                {
+                    aux.Add(x);
+                }
+            }
+            aux.ExceptWith(capturedPieces(color));
+            return aux;
+        }
+
+        public void putNewPiece(char column, int row, Piece piece)
+        {
+            board.placePiece(piece, new ChessPosition(column, row).toPosition());
+            pieces.Add(piece);
+        }
+
         private void putPieces()
         {
-            board.placePiece(new Tower(board, Color.White), new ChessPosition('c', 1).toPosition());
-            board.placePiece(new Tower(board, Color.White), new ChessPosition('c', 2).toPosition());
-            board.placePiece(new Tower(board, Color.White), new ChessPosition('d', 2).toPosition());
-            board.placePiece(new Tower(board, Color.White), new ChessPosition('e', 2).toPosition());
-            board.placePiece(new Tower(board, Color.White), new ChessPosition('e', 1).toPosition());
-            board.placePiece(new King(board, Color.White), new ChessPosition('d', 1).toPosition());
+            putNewPiece('c', 1, new Tower(board, Color.White));
+            putNewPiece('c', 2, new Tower(board, Color.White));
+            putNewPiece('d', 2, new Tower(board, Color.White));
+            putNewPiece('e', 2, new Tower(board, Color.White));
+            putNewPiece('e', 1, new Tower(board, Color.White));
+            putNewPiece('d', 1, new King(board, Color.White));
 
-            board.placePiece(new Tower(board, Color.Black), new ChessPosition('c', 7).toPosition());
-            board.placePiece(new Tower(board, Color.Black), new ChessPosition('c', 8).toPosition());
-            board.placePiece(new Tower(board, Color.Black), new ChessPosition('d', 7).toPosition());
-            board.placePiece(new Tower(board, Color.Black), new ChessPosition('e', 7).toPosition());
-            board.placePiece(new Tower(board, Color.Black), new ChessPosition('e', 8).toPosition());
-            board.placePiece(new King(board, Color.Black), new ChessPosition('d', 8).toPosition());
+            putNewPiece('c', 7, new Tower(board, Color.Black));
+            putNewPiece('c', 8, new Tower(board, Color.Black));
+            putNewPiece('d', 7, new Tower(board, Color.Black));
+            putNewPiece('e', 7, new Tower(board, Color.Black));
+            putNewPiece('e', 8, new Tower(board, Color.Black));
+            putNewPiece('d', 8, new King(board, Color.Black));
+
+
         }
     }
 }

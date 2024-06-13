@@ -18,12 +18,7 @@ namespace chess
                     try
                     {
                         Console.Clear();
-                        Screen.printScreen(chessMatch.board);
-                        Console.WriteLine();
-                        Console.WriteLine();
-
-                        Console.WriteLine("Turno: " + chessMatch.turn);
-                        Console.WriteLine("Aguardando jogada: " + chessMatch.currentPlayer);
+                        Screen.printMatch(chessMatch);
 
                         Console.WriteLine();
 
@@ -36,6 +31,7 @@ namespace chess
                         Console.Clear();
                         Screen.printScreen(chessMatch.board, possiblePositions);
 
+                        Console.WriteLine();
                         Console.WriteLine();
 
                         Console.Write("Destino: ");

@@ -98,7 +98,7 @@ namespace chess
 
         public void validateTargetPosition(Position source, Position target)
         {
-            if (!board.piece(source).canMoveTo(target))
+            if (!board.piece(source).possibleMove(target))
             {
                 throw new BoardException("Invalid target position!");
             }

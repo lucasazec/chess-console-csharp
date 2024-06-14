@@ -15,11 +15,20 @@ namespace Chess_Console
             printCapturedPieces(match);
             Console.WriteLine();
             Console.WriteLine("Turn: " + match.turn);
-            Console.WriteLine("Waiting player: " + match.currentPlayer);
-            if (match.check)
+            if (!match.finished)
             {
-                Console.WriteLine("CHECK!");
+                Console.WriteLine("Waiting player: " + match.currentPlayer);
+                if (match.check)
+                {
+                    Console.WriteLine("CHECK!");
+                }
             }
+            else
+            {
+                Console.WriteLine("CHECKMATE!");
+                Console.WriteLine("Winner: " + match.currentPlayer);
+            }
+            
         }
 
         public static void printCapturedPieces(ChessMatch match)

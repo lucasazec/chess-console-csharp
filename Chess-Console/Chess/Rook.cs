@@ -2,9 +2,9 @@
 
 namespace chess
 {
-    internal class Tower : Piece
+    internal class Rook : Piece
     {
-        public Tower(Board board, Color color) : base(board, color)
+        public Rook(Board board, Color color) : base(board, color)
         {
         }
 
@@ -50,7 +50,7 @@ namespace chess
             }
 
             // RIGHT
-            pos.defineValues(position.row, position.column +1);
+            pos.defineValues(position.row, position.column + 1);
             while (board.validPosition(pos) && canMove(pos))
             {
                 mat[pos.row, pos.column] = true;

@@ -1,5 +1,4 @@
 ﻿using board;
-using System.Runtime.ConstrainedExecution;
 
 namespace chess
 {
@@ -16,7 +15,7 @@ namespace chess
 
         private bool canMove(Position position) {
             Piece piece = board.piece(position);
-            return piece == null || piece.color == color;
+            return piece == null || piece.color != color;
         }
 
         public override bool[,] possibleMoves()

@@ -34,19 +34,60 @@ namespace chess
             {
                 captured.Add(capturedPiece);
             }
+
+            // SPECIALMOVE KINGSIDE ROOK
+            if (p is King && targetPosition.column == sourcePosition.column + 2)
+            {
+                Position sourceR = new Position(sourcePosition.row, sourcePosition.column + 3);
+                Position targetR = new Position(sourcePosition.row, sourcePosition.column + 1);
+                Piece R = board.removePiece(sourceR);
+                R.increaseMoveCount();
+                board.placePiece(R, targetR);
+            }
+
+            // SPECIALMOVE QUEENSIDE ROOK
+            if (p is King && targetPosition.column == sourcePosition.column - 2)
+            {
+                Position sourceR = new Position(sourcePosition.row, sourcePosition.column - 4);
+                Position targetR = new Position(sourcePosition.row, sourcePosition.column - 1);
+                Piece R = board.removePiece(sourceR);
+                R.increaseMoveCount();
+                board.placePiece(R, targetR);
+            }
+
             return capturedPiece;
         }
 
-        public void undoMove(Position sourcedPosition, Position targetdPosition, Piece capturedPiece)
+        public void undoMove(Position sourcePosition, Position targetPosition, Piece capturedPiece)
         {
-            Piece p = board.removePiece(targetdPosition);
+            Piece p = board.removePiece(targetPosition);
             p.decreaseMoveCount();
             if (capturedPiece != null)
             {
-                board.placePiece(capturedPiece, targetdPosition);
+                board.placePiece(capturedPiece, targetPosition);
                 captured.Remove(capturedPiece);
             }
-            board.placePiece(p, sourcedPosition);
+            board.placePiece(p, sourcePosition);
+
+            // SPECIALMOVE KINGSIDE ROOK
+            if (p is King && targetPosition.column == sourcePosition.column + 2)
+            {
+                Position sourceR = new Position(sourcePosition.row, sourcePosition.column + 3);
+                Position targetR = new Position(sourcePosition.row, sourcePosition.column + 1);
+                Piece R = board.removePiece(targetR);
+                R.decreaseMoveCount();
+                board.placePiece(R, sourceR);
+            }
+
+            // SPECIALMOVE QUEENSIDE ROOK
+            if (p is King && targetPosition.column == sourcePosition.column - 2)
+            {
+                Position sourceR = new Position(sourcePosition.row, sourcePosition.column - 4);
+                Position targetR = new Position(sourcePosition.row, sourcePosition.column - 1);
+                Piece R = board.removePiece(targetR);
+                R.decreaseMoveCount();
+                board.placePiece(R, sourceR);
+            }
         }
 
         public void makeMove(Position sourcePosition, Position targetPosition)
@@ -228,7 +269,7 @@ namespace chess
             putNewPiece('b', 1, new Knight(board, Color.White));
             putNewPiece('c', 1, new Bishop(board, Color.White));
             putNewPiece('d', 1, new Queen(board, Color.White));
-            putNewPiece('e', 1, new King(board, Color.White));
+            putNewPiece('e', 1, new King(board, Color.White, this));
             putNewPiece('f', 1, new Bishop(board, Color.White));
             putNewPiece('g', 1, new Knight(board, Color.White));
             putNewPiece('h', 1, new Rook(board, Color.White));
@@ -245,7 +286,7 @@ namespace chess
             putNewPiece('b', 8, new Knight(board, Color.Black));
             putNewPiece('c', 8, new Bishop(board, Color.Black));
             putNewPiece('d', 8, new Queen(board, Color.Black));
-            putNewPiece('e', 8, new King(board, Color.Black));
+            putNewPiece('e', 8, new King(board, Color.Black, this));
             putNewPiece('f', 8, new Bishop(board, Color.Black));
             putNewPiece('g', 8, new Knight(board, Color.Black));
             putNewPiece('h', 8, new Rook(board, Color.Black));

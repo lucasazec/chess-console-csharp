@@ -121,7 +121,8 @@ namespace chess
                     {
                         posP = new Position(3, targetPosition.column);
                     }
-                    else{
+                    else
+                    {
                         posP = new Position(4, targetPosition.column);
                     }
                     board.placePiece(pawn, posP);
@@ -137,6 +138,21 @@ namespace chess
             {
                 undoMove(sourcePosition, targetPosition, capturedPiece);
                 throw new BoardException("You can't put yourself in check!");
+            }
+
+            Piece p = board.piece(targetPosition);
+
+            // SPECIALMOVE PROMOTION
+            if (p is Pawn)
+            {
+                if ((p.color == Color.White && targetPosition.row == 0) || (p.color == Color.Black && targetPosition.row == 7))
+                {
+                    p = board.removePiece(targetPosition);
+                    pieces.Remove(p);
+                    Piece queen = new Queen(board, p.color);
+                    board.placePiece(queen, targetPosition);
+                    pieces.Add(queen);
+                }
             }
 
             if (testCheck(opponent(currentPlayer)))
@@ -158,7 +174,6 @@ namespace chess
                 changePlayer();
             }
 
-            Piece p = board.piece(targetPosition);
 
             // SPECIALMOVE EN PASSANT
             if (p is Pawn && (targetPosition.row == sourcePosition.row - 2 || targetPosition.row == sourcePosition.row + 2))
